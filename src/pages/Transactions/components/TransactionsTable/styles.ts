@@ -7,6 +7,13 @@ export const TransactionTableContainer = styled.div`
   padding: 0 1.5rem;
 `
 
+export const SpinnerDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
+`
+
 export const TransactionTable = styled.table`
   width: 100%;
   border-collapse: separate;

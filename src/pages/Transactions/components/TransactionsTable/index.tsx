@@ -1,34 +1,47 @@
+import { useContext } from 'react'
+import { TransactionsContext } from '../../../../contexts/TransactionsContext'
 import { SearchForm } from '../SearchForm'
 import {
   PriceHighlight,
+  SpinnerDiv,
   TransactionTable,
   TransactionTableContainer,
 } from './styles'
+import { dateFormatter, priceFormatter } from '../../../../utils/formatter'
+import { CircleNotch } from 'phosphor-react'
 
 export function TransactionsTable() {
+  const { transactions } = useContext(TransactionsContext)
   return (
     <TransactionTableContainer>
       <SearchForm />
-      <TransactionTable>
-        <tbody>
-          <tr>
-            <td width="50%">Website Development</td>
-            <td>
-              <PriceHighlight variant="income">$12,000.00</PriceHighlight>
-            </td>
-            <td>Sell</td>
-            <td>30/03/2024</td>
-          </tr>
-          <tr>
-            <td width="50%">Good Burguer&apos;s</td>
-            <td>
-              <PriceHighlight variant="outcome">- $59.00</PriceHighlight>
-            </td>
-            <td>Food</td>
-            <td>30/03/2024</td>
-          </tr>
-        </tbody>
-      </TransactionTable>
+      {transactions.length === 0 ? (
+        <SpinnerDiv>
+          <CircleNotch className="animate-spin" />
+        </SpinnerDiv>
+      ) : (
+        <TransactionTable>
+          <tbody>
+            {transactions.map((transaction) => {
+              return (
+                <tr key={transaction.id}>
+                  <td width="50%">{transaction.description}</td>
+                  <td>
+                    <PriceHighlight variant={transaction.type}>
+                      {transaction.type === 'outcome' && '- '}
+                      {priceFormatter.format(transaction.price)}
+                    </PriceHighlight>
+                  </td>
+                  <td>{transaction.category}</td>
+                  <td>
+                    {dateFormatter.format(new Date(transaction.createdAt))}
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </TransactionTable>
+      )}
     </TransactionTableContainer>
   )
 }

@@ -1,0 +1,28 @@
+{
+  "transactions": [
+    {
+    "id": 1,
+    "description": "Website Development",
+    "type": "income",
+    "category": "Sell",
+    "price": 14000,
+    "createdAt": "2024-03-30T22:15:50.505Z"
+  },
+    {
+    "id": 2,
+    "description": "Good Burguer's",
+    "type": "outcome",
+    "category": "Food",
+    "price": 59,
+    "createdAt": "2024-03-30T22:14:50.505Z"
+  },
+    {
+    "id": 3,
+    "description": "New Macbook m3",
+    "type": "outcome",
+    "category": "Tech",
+    "price": 13500,
+    "createdAt": "2024-03-31T22:14:50.505Z"
+  }
+]
+}
