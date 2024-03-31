@@ -20,7 +20,7 @@ export function TransactionsTable() {
             <td>30/03/2024</td>
           </tr>
           <tr>
-            <td width="50%">Good Burguer's</td>
+            <td width="50%">Good Burguer&apos;s</td>
             <td>
               <PriceHighlight variant="outcome">- $59.00</PriceHighlight>
             </td>
