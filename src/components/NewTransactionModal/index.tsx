@@ -10,12 +10,12 @@ import { ArrowCircleDown, ArrowCircleUp, CircleNotch, X } from 'phosphor-react'
 
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 
 const newTransactionFormSchema = z.object({
   description: z.string(),
   price: z.number(),
-  // type: z.enum(['income', 'outcome']),
+  type: z.enum(['income', 'outcome']),
   category: z.string(),
 })
 
@@ -23,11 +23,15 @@ type NewTransactionFormInputs = z.infer<typeof newTransactionFormSchema>
 
 export function NewTransactionModal() {
   const {
+    control,
     register,
     handleSubmit,
     formState: { isSubmitting },
   } = useForm<NewTransactionFormInputs>({
     resolver: zodResolver(newTransactionFormSchema),
+    defaultValues: {
+      type: 'income',
+    },
   })
 
   async function handleCreateNewTransaction(data: NewTransactionFormInputs) {
@@ -69,14 +73,25 @@ export function NewTransactionModal() {
             required
           />
 
-          <TransactionType>
-            <TransactionTypeButton variant="income" value="income">
-              <ArrowCircleUp size={24} /> Income
-            </TransactionTypeButton>
-            <TransactionTypeButton variant="outcome" value="outcome">
-              <ArrowCircleDown size={24} /> Outcome
-            </TransactionTypeButton>
-          </TransactionType>
+          <Controller
+            control={control}
+            name="type"
+            render={({ field }) => {
+              return (
+                <TransactionType
+                  onValueChange={field.onChange}
+                  value={field.value}
+                >
+                  <TransactionTypeButton variant="income" value="income">
+                    <ArrowCircleUp size={24} /> Income
+                  </TransactionTypeButton>
+                  <TransactionTypeButton variant="outcome" value="outcome">
+                    <ArrowCircleDown size={24} /> Outcome
+                  </TransactionTypeButton>
+                </TransactionType>
+              )
+            }}
+          />
           <button type="submit" disabled={isSubmitting}>
             {isSubmitting ? (
               <CircleNotch className="animate-spin" />
