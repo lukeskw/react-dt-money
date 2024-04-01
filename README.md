@@ -1,4 +1,4 @@
-# DT MONEY App
+# DT MONEY
 
 DT MONEY is a finance application that helps users track their expenses and income. Users can add transactions with a description, price, category, and specify if it's income or an expense. The homepage features a dashboard displaying a list of transactions, a summary of income, expenses, and total spent. Additionally, users can search for specific transactions.
 
