@@ -1,4 +1,3 @@
-import { useContext } from 'react'
 import { TransactionsContext } from '../../../../contexts/TransactionsContext'
 import { SearchForm } from '../SearchForm'
 import {
@@ -9,9 +8,15 @@ import {
 } from './styles'
 import { dateFormatter, priceFormatter } from '../../../../utils/formatter'
 import { CircleNotch } from 'phosphor-react'
+import { useContextSelector } from 'use-context-selector'
 
 export function TransactionsTable() {
-  const { transactions } = useContext(TransactionsContext)
+  const { transactions } = useContextSelector(
+    TransactionsContext,
+    (context) => {
+      return { transactions: context.transactions }
+    },
+  )
   return (
     <TransactionTableContainer>
       <SearchForm />
